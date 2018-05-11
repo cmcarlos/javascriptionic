@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script languaje="script">
+        function buscarletra()
+        {
+            var dni=document.getElementById("dni").value;
+            var num_dni=dni.isinteger;
+            
+            alert(num_dni);
+        }
+        </script>
+    </head>
+    <body>
+        <p>Introduce tu número de DNI sin letra:</p>
+        <input type="text" id="dni">
+        <button type="button" id="boton" onclick="buscarletra();">Muestra la letra</button>
+
+    </body>
+</html>
