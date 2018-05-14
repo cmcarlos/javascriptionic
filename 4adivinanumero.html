@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script languaje="javascript">
+            window.onload=aleatorio;
+            var contador=1;
+            function aleatorio()
+            {
+                num_aleatorio=Math.ceil(Math.random()*100);
+                alert(num_aleatorio);
+                return num_aleatorio;
+                comprobarNumero(num_aleatorio);
+            }
+            
+            function comprobarNumero(num_aleatorio)
+            {
+                var opcion=document.getElementById("opcion").value;
+                
+                while(opcion!=num_aleatorio)
+                {
+                    if (opcion>num_aleatorio)
+                    {
+                        document.getElementById("ayuda").value="Introduce número menor";
+                        document.getElementById("contador").value=contador++;
+                    }
+                    else
+                    {
+                        document.getElementById("ayuda").value="Introduce número mayor";
+                        document.getElementById("contador").value=contador++;
+                    }
+                }
+                alert("Enhorabuena has acertado!!");
+            }
+                
+            
+            
+        </script>
+    </head>
+    <body>
+        <p>Introduce un número a ver si aciertas:</p>
+        <input type="text" id="opcion" placeholder="Introduce un número">
+        <button id=boton onclick="comprobarNumero();">Comprobar</button>
+        <input type="text" id="ayuda" size="40">
+        <input type="text" id="contador">
+        
+    </body>
+
+</html>

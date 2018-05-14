@@ -1,0 +1,76 @@
+<html>
+    <head>
+        
+        <script languaje="javascript">
+            const exponente=2;
+
+        function calcularIndiceMasaCorporal(){
+            
+            var peso=document.getElementById("peso").value;
+            var altura=document.getElementById("altura").value;
+            var divisor=elevar(exponente, altura);
+            var division= dividir(peso, divisor);
+            alert(division);
+            dibujar(division);
+        }
+
+        function elevar(exponente, altura){
+            var resultado=Math.pow(altura, exponente)
+            return resultado;
+        }
+
+        function dividir(peso, divisor){
+            var division=peso/divisor;
+            return division;
+        }
+
+        function dibujar(division){
+            
+        if(division<=16) {//todo poner imagenes
+            flaco(division);
+        }else if(division>=16 && division<18){
+            delgado(division);
+        }else if(division>=18 && division<25){
+            ideal(division);
+        }else if(division>=25 && division<31){
+            sobrepeso(division);
+        }else{
+            obeso();
+        }
+        }
+        function flaco(division){
+            document.getElementById("estado").value="flaco"
+            document.getElementById("numerico").value=division
+            document.getElementById("foto").src="hombre flaco.jpg"
+        }
+        function delgado(division){
+            document.getElementById("estado").value="delgado"
+            document.getElementById("numerico").value=division
+            document.getElementById("foto").src="hombre delgado.jpg"
+        }
+        function ideal(division){
+            document.getElementById("estado").value="ideal"
+            document.getElementById("numerico").value=division
+            document.getElementById("foto").src="hombre ideal.jpg"
+        }
+        function sobrepeso(division){
+            document.getElementById("estado").value="sobrepeso"
+            document.getElementById("numerico").value=division
+            document.getElementById("foto").src="hombre sobrepeso.jpg"
+        }
+        function obeso(){
+            document.getElementById("estado").value="obeso"
+            document.getElementById("numerico").value=division
+            document.getElementById("foto").src="hombre obeso.jpg"
+        }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="peso" placeholder="Introduce tu peso"><br>
+        <input type="text" id="altura" placeholder="Introduce tu altura"><br><br>
+        <button type="button" onclick="calcularIndiceMasaCorporal();">Calcula IMC</button><br><br>
+        <input type="text" id="estado"><br>
+        <input type="text" id=numerico><br>
+        <img id="foto" width="300px">
+    </body>
+</html>

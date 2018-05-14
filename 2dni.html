@@ -1,10 +1,15 @@
 <html>
     <head>
+        <title>prueba DNI</title>
         <script languaje="script">
+            const LETRA="TRWAGMYFPDXBNJZSQVHLCKE";
         function buscarletra()
         {
             var dni=document.getElementById("dni").value;
-            var num_dni=dni.isinteger;
+            var num_dni=parseInt(dni);
+            var resto=num_dni%23;
+            
+            
             
             alert(num_dni);
         }
@@ -13,7 +18,7 @@
     <body>
         <p>Introduce tu número de DNI sin letra:</p>
         <input type="text" id="dni">
-        <button type="button" id="boton" onclick="buscarletra();">Muestra la letra</button>
+        <button type="button" id="boton" onclick="buscarLetra();">Muestra la letra</button>
 
     </body>
 </html>
