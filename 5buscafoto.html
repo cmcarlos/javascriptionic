@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <script languaje="javascript">
+            onload=inicio;
+
+            var parejas=2;
+            var img_tocada;
+            function inicio()
+            {
+                img_tocada=false;
+                var td_actual;
+                var imagen;
+                var lista_tds = document.querySelectorAll("td");
+                    for(var i=0; i < lista_tds.length; i++)
+                    {
+                        td_actual = lista_tds[i];
+                        td_actual.addEventListener("click", ocultaImagen);
+                        imagen = td_actual.firstElementChild;
+                        imagen.style.visibility="hidden";
+
+                    }
+            }
+
+            function ocultaImagen(evento)
+            {
+                console.log ("Evento detectado");
+                if(!img_tocada)
+                {
+                    alert("primer click");
+                }
+                else
+                {
+                    alert("segundo click");
+                }
+                img_tocada = !img_tocada;
+                var img_tocada=evento.currentTarget.firstElementChild;
+                
+                var estilo = img_tocada.style.visibility;
+
+                if (estilo == 'visible' || estilo == '') 
+                {
+                    img_tocada.style.visibility = 'hidden';
+                }
+                else 
+                {
+                    img_tocada.style.visibility = 'visible';
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <table border="2px">
+            <tr>
+                <td><img src="ironman.png" width="150px"></td>
+                <td><img src="capitan.png" width="150px"></td> 
+            </tr>
+            <tr>
+                <td><img src="capitan.png" width="150px"></td>
+                <td><img src="ironman.png" width="150px"></td>
+            </tr>
+        </table>
+    </body>
+</html>
