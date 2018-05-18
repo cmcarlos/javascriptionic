@@ -1,14 +1,16 @@
 <html>
     <head>
         <script>
+            
+            function calcularMayor()
+            {
             var primer_valor=prompt("Introduce el primer valor");
             var primero = parseInt(primer_valor);
             var segundo_valor=prompt("Introduce el segundo valor");
             var segundo=parseInt(segundo_valor);
             var tercer_valor=prompt("Introduce el tercer valor");
             var tercero = parseInt(tercer_valor);
-            function calcularMayor()
-            {
+
                 if(primero>segundo && primero>tercero)
                 {
                     alert("El valor "+ primero+ "es mayor que "+segundo+" y que "+tercero);

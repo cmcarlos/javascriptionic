@@ -23,20 +23,18 @@ Dni.esValido = function(cadena)
         if(longitud<9)
         {
             valido=true;
-            console.log("el número tiene una longitud adecuada");
-            
-            
-        }else
+            console.log("el número tiene una longitud adecuada");  
+        }
+        else
         {
             valido=false
             console.log("El número es demasiado largo");
-            
         }
     return valido;
 }
 
 //var resultado=Dni.esValido(cadena);
-console.log(Dni.esValido(333333333333333));
+console.log(Dni.esValido(333333));
 
 var dni = new Dni (298);
 

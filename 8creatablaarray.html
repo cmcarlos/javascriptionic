@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script>
+            var array_textos= new Array();//Creo un array
+
+            function anadirALaTabla(texto)
+            {
+
+            }
+            function anadirAlArray(texto)
+            {
+                
+                if(texto!=null)
+                {
+                    array_textos.push=texto;
+                    console.log(array_textos);
+                }else
+                {
+                    console.log("no se ha introducido valor, o no lo reconoce");
+                }
+            }
+            function anadirCampo()
+            {
+                console.log("has dado click");
+                var texto=document.getElementById("texto").value;//recojo el valor que se introduce
+                anadirALaTabla(texto);
+                anadirAlArray(texto);
+
+            }
+            
+
+        </script>
+    </head>
+    <body>
+        <input type=text id=texto>
+        <button id="boton" onclick="anadirCampo()">Añadir</button>
+        <table>
+            <tr id="enganche">
+           
+            </tr>
+        </table>
+    </body>
+
+</html>
