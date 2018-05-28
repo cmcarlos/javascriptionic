@@ -1,0 +1,56 @@
+
+<html>
+        <head>
+            
+            <title>cambiar color</title>
+            <script language="javascript">
+            window.onload= inicia;
+            var foto;
+            function inicia(){
+                var azul;
+                var gris;
+                cambiarColor1();
+                cambiarColor2();
+                automatico();
+                parar();
+            }
+            
+            function cambiarColor1()
+            {
+                azul = document.getElementById("foto").src="zapatillaazul.jpg";
+            }
+
+            function cambiarColor2()
+            {
+                gris = document.getElementById("foto").src= "zapatillagris.jpg";
+            }
+                
+            function automatico()
+            {
+                in_interval = setInterval(cambioAutomatico,2000)
+            }
+
+            function cambioAutomatico()
+            {
+              
+            }
+            function parar()
+            {
+
+            }
+
+            </script>
+        </head>
+        <body>
+            <div style="height: 300px;">
+                
+                <img src="zapatillaazul.jpg" id="foto" style="height: 250px;">
+                
+            </div>
+                <button type="button" onclick="cambiarColor1();">Color Azul</button>
+                <button type="button" onclick="cambiarColor2();">Color Gris</button>
+                <button type="button" onclick="automatico();">Automatico</button>
+                <button type="button" onclick="para();">Parar</button>
+
+        </body>
+        </html>

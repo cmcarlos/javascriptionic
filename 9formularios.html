@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Pasar Json con Ajax</title>
+        <script>
+            var xmlHttp = new XMLHttpRequest();
+            const DIR_SERV = "http://10.1.2.10:8080/appwebprofe/RegistrarPersona";
+
+            function procesarEventos()
+            {
+                console.log("Procesar eventos invocados " + xmlHttp.readyState);
+                if(xmlHttp.readyState==4)
+                {
+                    console.log(xmlHttp.responseText);
+                }
+                //cuando readeState sea 4 procesamos el mensaje HTTP de respuesta;
+
+            }
+
+            function enviarDatos()
+            {
+                var nombre = document.getElementById("nombre").value;
+                var edad = document.getElementById("edad").value;
+
+                console.log("el nombre es: " + nombre + " y tiene " + edad);
+
+                var persona = {
+                    nombre:nombre,
+                    edad:edad
+                };
+
+            console.log("persona introducida: " + persona.nombre);
+            console.log("persona introducida: " + persona.edad + " años");
+            
+            var persona_json = JSON.stringify(persona);
+            console.log(persona_json);
+
+            //PREPARO LA LLAMADA
+
+            xmlHttp.onreadystatechange = procesarEventos;
+            xmlHttp.open('POST', DIR_SERV, true);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');//Content-Type: es el MIME; Es el tipo de
+            xmlHttp.send(persona_json);//el cuerpo de persona
+
+        
+            }
+            
+        </script>
+    </head>
+
+    <body>
+
+        
+            <input type="text" id="nombre"><br>
+        
+            <input type="number" id="edad">
+        
+        <button id="boton" onclick="enviarDatos();">Enviar</button>
+    </body>
+</html>

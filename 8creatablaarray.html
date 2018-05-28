@@ -1,43 +1,77 @@
 <html>
     <head>
         <script>
-            var array_textos= new Array();//Creo un array
+            window.onload= inicia;
 
+            function inicia()
+            {
+            var array_textos= new Array();//Creo un array
+            var num_elemento;
+            }
             function anadirALaTabla(texto)
             {
+                var tabla = document.getElementById("enganche");//obtengo referencia a la tabla
+                var nueva_fila = document.createElement("TR");//creo la fila
+            
+                var columna = document.createElement("TD");//creo la columna
+                nueva_fila.id=num_elemento;
+                console.log("" + nueva_fila.id)
+                num_elemento++;
+                columna.innerHTML = texto;//pongo el texto a la columna
+                columna.addEventListener('click', filaTocada)
+
+                nueva_fila.appendChild(columna);//añado la columna a la fila
+                tabla.appendChild(nueva_fila);//añado la fila a la columna
 
             }
             function anadirAlArray(texto)
             {
-                
-                if(texto!=null)
-                {
-                    array_textos.push=texto;
+                    array_textos.push(texto);
+                    console.log("longitud cuando añado: " + array_textos.length);
                     console.log(array_textos);
-                }else
-                {
-                    console.log("no se ha introducido valor, o no lo reconoce");
-                }
             }
+
+            function limpiar() 
+            {
+            document.getElementById("texto").value = "";
+            document.getElementById("texto").focus();
+            }
+
             function anadirCampo()
             {
-                console.log("has dado click");
                 var texto=document.getElementById("texto").value;//recojo el valor que se introduce
                 anadirALaTabla(texto);
                 anadirAlArray(texto);
+                limpiar();
 
+            }
+
+            function filaTocada(evento)
+            {
+                var td_tocado = evento.target;
+                evento.currentTarget.remove();
+                eliminarDelArray(td_tocado);
+            }
+
+            function eliminarDelArray(td_tocado)
+            {
+                var puesto= array_textos.indexOf(td_tocado);
+                console.log("array: " + array_textos);
+                console.log("este es el puesto: " + puesto);
+                console.log("longitud antes del splice: " + array_textos.length);
+                array_textos.splice(puesto, 1);
+                console.log("longitud después del splice: " + array_textos.length);
+                console.log("array: " + array_textos);
             }
             
 
         </script>
     </head>
     <body>
-        <input type=text id=texto>
+        <input type="text" id="texto">
         <button id="boton" onclick="anadirCampo()">Añadir</button>
-        <table>
-            <tr id="enganche">
-           
-            </tr>
+        <table id="enganche"> 
+            
         </table>
     </body>
 
