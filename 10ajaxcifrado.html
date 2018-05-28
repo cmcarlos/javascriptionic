@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Codificacion de Texto</title>
+    <link rel="stylesheet" type="text/css" href="codificacion.css">
+    <script>
+
+        var xmlHttp = new XMLHttpRequest();
+        const DIR_SERV = "http://10.1.2.10:8080/appwebprofe/ObtenerClave";
+        const DIR_SERV1 = "http://10.1.2.10:8080/appwebprofe/EnviarMensaje";
+        onload = cogerClave;
+        var clave;
+        var original; 
+        var m_encriptado;
+
+            //TODO ADD BOTON ENVIAR Y CONSUMIR EL POST
+            //http://10.1.2.10:8080/appwebprofe/EnviarMensaje
+            //JSON {"mensaje_original":"lh","mensaje_cifrado":"128124","clave":"20"}
+          function cogerClave ()
+          {
+            xmlHttp.open('GET', DIR_SERV, false);//true es que es asincrono y DIR_SERV es la dirección 
+            xmlHttp.setRequestHeader('Content-Type', 'appliction/json');// application/jpg y Content type es tipo MiME
+            xmlHttp.send (null);//El cuerpo del mensaje
+            clave = parseInt(xmlHttp.responseText);
+          }
+          function encriptar  (mensaje_original)
+        {
+            var encriptado="";
+            var longitud_mo = mensaje_original.length;
+            var letra_actual;
+            var codigo_letra = 0;   
+            for (var indice=0;indice<longitud_mo;indice=indice+1)
+            {
+                letra_actual = mensaje_original.charAt(indice);
+                codigo_letra = parseInt(mensaje_original.charCodeAt(indice)) + parseInt(clave);
+                encriptado = encriptado + codigo_letra;
+            }
+            return encriptado;
+        }
+        function recogerTexto() 
+        {
+            var original = document.getElementById("original").value;
+            var m_encriptado = encriptar(original);
+            document.getElementById("codificado").value = m_encriptado;
+        }
+
+        function enviarTexto ()
+        {   
+            var mensaje = {
+                mensaje_original : original,
+                mensaje_cifrado : m_encriptado,
+                clave : clave 
+            }
+
+            var mensaje_son = JSON.stringify(mensaje);
+
+            xmlHttp.onreadystatechange = procesarEventos;
+            xmlHttp.open('POST', DIR_SERV1, true);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');//El tipo de info que viaja en el cuerpo, tipo mime y demás
+            xmlHttp.send(mensaje_json);//El cuerpo del mensaje
+
+        }
+
+        function procesarEventos()
+        {
+            if (xmlHttp.readyState==4)
+            {//YA HE ACABDO
+                console.log ("STATUS " + xmlHttp.status);
+		        if (xmlHttp.status==200)
+                {   
+                    console.log("has llegado");
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <textarea name="texto_original" id="original" cols="40" rows="20"></textarea>
+    <button onclick="recogerTexto();">Codificar </button>
+    <textarea name="texto_codificado" id="codificado" cols="40" rows="20"></textarea>
+    <button onclick="enviarTexto();">Enviar </button>
+</body>
+
+</html>

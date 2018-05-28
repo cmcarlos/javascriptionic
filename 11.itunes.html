@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script>
+       
+      
+            var xmlHttp = new XMLHttpRequest(); 
+            
+            function buscarCancion ()
+            {
+                var cancion = document.getElementById("nombre").value;
+                var url = "https://itunes.apple.com/search?term=" + cancion + "&media=music&limit=20";
+                console.log(url);
+            
+                var cancion = {
+                    term : cancion,
+                    media : "music",
+                    limit : "20"
+                }
+                var cancion_json = JSON.stringify(cancion);
+                console.log (cancion_json);
+                console.log("has dado al boton");
+                console.log(xmlHttp);
+                xmlHttp.onreadystatechange = procesarEventos;
+                xmlHttp.open('GET', url, true);
+                xmlHttp.setRequestHeader('Content-Type', 'appliction/json');
+
+            }
+
+            function procesarEventos()
+            {
+
+                console.log("llega hasta aquí");
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="nombre"><br>
+        <button id="buscar" onclick="buscarCancion();">Buscar</button><br>
+
+        
+
+
+    </body>
+</html>
