@@ -4,38 +4,71 @@
        
       
             var xmlHttp = new XMLHttpRequest(); 
-            
             function buscarCancion ()
             {
                 var cancion = document.getElementById("nombre").value;
                 var url = "https://itunes.apple.com/search?term=" + cancion + "&media=music&limit=20";
                 console.log(url);
-            
-                var cancion = {
-                    term : cancion,
-                    media : "music",
-                    limit : "20"
-                }
-                var cancion_json = JSON.stringify(cancion);
-                console.log (cancion_json);
-                console.log("has dado al boton");
-                console.log(xmlHttp);
+                obtenerLista(url);
+            }
+
+            function obtenerLista(url)
+            {
                 xmlHttp.onreadystatechange = procesarEventos;
                 xmlHttp.open('GET', url, true);
                 xmlHttp.setRequestHeader('Content-Type', 'appliction/json');
-
+                xmlHttp.send(null);
+                
             }
 
             function procesarEventos()
             {
+                var listado;
+                console.log("estado: "+ xmlHttp.readyState + "estatus: " + xmlHttp.status);
+                if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                {
+                listado = xmlHttp.responseText;
+                var lista_canciones= JSON.parse(listado);
+                console.log(lista_canciones);
+                console.log(lista_canciones.resultCount);
+                    
+                pintarCanciones(lista_canciones)
+                }
+                
+            }
+            function pintarCanciones(lista_canciones)
+            {
+                console.log("ha entrado en pintar");
+                var tabla=document.getElementById("contenedor");
+                var fila;
+                var columna;
+                var artista;
+                var id;
 
-                console.log("llega hasta aquí");
+                console.log("longitud de la lista: " + lista_canciones.resultCount);
+                for(var i=0; i<lista_canciones.resultCount; i++)
+                {
+                    fila = document.createElement("tr");
+                    
+                    for(var j=0; j<6; j++)
+                    {
+                        columna = document.createElement("td");
+                        artista = lista_canciones.results[i].artistName;
+                        
+                    }
+                    columna.innerHTML = artista;
+                    tabla.appendChild(fila);
+                    fila.appendChild(columna);
+                    
+                }
+
             }
         </script>
     </head>
     <body>
         <input type="text" id="nombre"><br>
         <button id="buscar" onclick="buscarCancion();">Buscar</button><br>
+        <table border="2px" id="contenedor"></table>
 
         
 
