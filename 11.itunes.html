@@ -49,16 +49,23 @@
                 for(var i=0; i<lista_canciones.resultCount; i++)
                 {
                     fila = document.createElement("tr");
-                    
+                    tabla.appendChild(fila);
                     for(var j=0; j<6; j++)
                     {
-                        columna = document.createElement("td");
-                        artista = lista_canciones.results[i].artistName;
+                        artista = document.createElement("td");
+                        artista.innerHTML = lista_canciones.results[i].artistName;
+
+                        fila.appendChild(artista);
                         
+
+                        columna = document.createElement("td");
+                        moneda = lista_canciones.results[i].currency;
+                        columna.innerHTML = artista;
+
                     }
-                    columna.innerHTML = artista;
-                    tabla.appendChild(fila);
-                    fila.appendChild(columna);
+                    
+                    
+                    
                     
                 }
 
