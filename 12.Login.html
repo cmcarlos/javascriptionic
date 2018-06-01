@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <script>
+        const EXPRESION_REGULAR_NOMBRE = /^\w{6,}$/;
+        const EXPRESION_REGULAR_EMAIL = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+        const EXPRESION_REGULAR_CONTRASEÑA = /^\w{6,15}$/;
+        var xmlHttp = new XMLHttpRequest();
+
+        function validar() {
+            var nombre_comprobado = comprobarNombre();
+            var email_comprobado = comprobarEmail();
+            var contraseña_comprobada = comprobarContraseña();
+            enviarDatos(nombre_comprobado, email_comprobado, contraseña_comprobada);
+        }
+        function comprobarNombre() {
+            var nombre_comprobado;
+            var nombre = document.getElementById("nombre").value;
+            var patron_nombre = new RegExp(EXPRESION_REGULAR_NOMBRE);
+            var nombre_valido = patron_nombre.test(nombre);
+            if (nombre_valido) {
+                console.log("Nombre de usuario válido");
+                nombre_comprobado = nombre;
+            } else {
+                console.log("Nombre de usuario no válido");
+            }
+            return nombre_comprobado;
+        }
+
+        function comprobarEmail() {
+            var email_comprobado;
+            var email = document.getElementById("email").value;
+            var patron_email = new RegExp(EXPRESION_REGULAR_EMAIL);
+            var email_valido = patron_email.test(email);
+            if (email_valido) {
+                console.log("Email válido");
+                email_comprobado = email;
+            } else {
+                console.log("Email no válido");
+            }
+            return email_comprobado;
+        }
+
+        function comprobarContraseña() {
+            var contraseña_comprobada;
+            var password = document.getElementById("password").value;
+            var password_repetido = document.getElementById("rep_password").value;
+            var patron_contraseña = new RegExp(EXPRESION_REGULAR_CONTRASEÑA);
+            var patron_contraseña_rep = new RegExp(EXPRESION_REGULAR_CONTRASEÑA);
+            var contraseña_valido = patron_contraseña.test(password);
+            var contraseña_rep_valida = patron_contraseña_rep.test(password_repetido);
+            if (contraseña_valido && contraseña_rep_valida) {
+                console.log("Contraseña válida");
+                if (password == password_repetido) {
+                    console.log("las contraseñas son correctas");
+                    password_comprobado = password;
+
+                } else {
+                    console.log("no son iguales las contraseñas");
+
+                }
+            } else {
+                console.log("Contraseña no válida");
+            }
+            return password_comprobado;
+        }
+
+
+
+        function enviarDatos(nombre_comprobado, email_comprobado, contraseña_comprobada) {
+            const DIR_SERV_ENVIAR = "http://10.1.2.10:8080/appwebprofe/Login";
+            var validacion = {
+                nombre: nombre_comprobado,
+                email: email_comprobado,
+                pwd: contraseña_comprobada
+            };
+            var validacion_json = JSON.stringify(validacion);
+            xmlHttp.onreadystatechange = pintarTabla;
+            xmlHttp.open('POST', DIR_SERV_ENVIAR, true);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send(validacion_json);
+        }
+        function pintarTabla() {
+            if (xmlHttp.readyState == 4) {
+                console.log("el estado es: " + xmlHttp.readyState);
+                if (xmlHttp.status == 200) {
+                    console.log("el estatus es 200");
+                    var respuesta = JSON.parse(xmlHttp.responseText);
+                    console.log("ha enviado los datos");
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form action="">
+        Nombre:
+        <input type="text" id="nombre" placeholder="Introduce tu nombre">
+        <br>
+        <br> Email:
+        <input type="email" id="email" placeholder="Introduce un email válido" size="25">
+        <br>
+        <br> Contraseña:
+        <input type="password" id="password">
+        <br>
+        <br> Repite Contraseña:
+        <input type="password" id="rep_password">
+        <br>
+        <br>
+        <button id="enviar" onclick="validar();">Enviar</button>
+        <button id="limpiar">Limpiar Campos</button>
+    </form>
+
+</body>
+
+</html>
